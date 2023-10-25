@@ -1,0 +1,70 @@
+﻿@model IEnumerable<SalesMaster>
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row col-10 mx-auto">
+    <h3 class="text-center display-6 alert alert-info">Sale Information</h3>
+    <div class="col">
+        <div class="d-flex justify-content-end">
+            <a asp-action="Create" asp-controller="Sale" class="btn btn-sm btn-outline-primary mb-2"><i class="fa fa-plus"></i> New Sale </a>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between">
+                    <div>
+                        
+                        <strong>Customer Name: </strong><span class="text-primary">@Html.DisplayFor(x => item.CustomerName)</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <strong>Invoice No: <span class="text-danger">@Html.DisplayFor(x => item.InvoiceNumber)</span></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <strong>Mobile No: <span class="text-success">@Html.DisplayFor(x => item.MobileNo)</span></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <strong>Address: <span class="text-warning">@Html.DisplayFor(x => item.Address)</span></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        @* <strong>Customer Name: </strong>@Html.DisplayFor(x=>item.CustomerName) &nbsp;&nbsp;&nbsp;&nbsp; *@
+                        @* <strong>Invoice No: </strong>@Html.DisplayFor(x=>item.InvoiceNumber) &nbsp;&nbsp;&nbsp;&nbsp;
+                        <strong>Mobile No: </strong>@Html.DisplayFor(x=>item.MobileNo) &nbsp;&nbsp;&nbsp;&nbsp;
+                        <strong>Address: </strong>@Html.DisplayFor(x=>item.Address) &nbsp;&nbsp;&nbsp;&nbsp; *@
+                    </div>
+                    <div>
+                        <a href="@Url.Action("Edit", "Sale", new {id=item.SalesMasterId})" class="btn btn-outline-success btn-sm"><i class="fa fa-edit"></i></a>
+                        @* <a href="@Url.Action("Delete", "Sale", new { id = item.SalesMasterId })" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></a> *@
+                        <a href="#" id="btnEntryDelete" onclick="Delete(@item.SalesMasterId)" class="btn btn-outline-danger btn-sm">
+                            <i class="fa fa-trash"></i></a>
+
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <table class="table table-bordered table-striped table-hover table-responsive-sm">
+                        <thead class="table-primary">
+                            <tr>
+                                <th class="text-center">Product Code</th>
+                                <th class="text-center">Product Name</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var info in item.SalesDetails)
+                            {
+                                <tr>
+                                    <td class ="text-center">@Html.DisplayFor(e => info.ProductCode)</td>
+                                    <td class="text-center">@Html.DisplayFor(e => info.ProductName)</td>
+                                    <td class="text-center">@Html.DisplayFor(e => info.Price)</td>
+                                    <td class="text-center">@Html.DisplayFor(e => info.Quantity)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+<script src="~/jquery/jquery.min.js"></script>
+@* <script>
+
+</script> *@
